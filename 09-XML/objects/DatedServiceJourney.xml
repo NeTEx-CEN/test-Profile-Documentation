@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery version="1.0" xmlns="http://www.netex.org.uk/netex">
+    <PublicationTimestamp>2025-02-12T11:48:41</PublicationTimestamp>
+    <ParticipantRef>ENT</ParticipantRef>
+    <dataObjects>
+        <TimetableFrame version="1" id="ENT:TimeTableFrame:1">
+            <vehicleJourneys>
+                <DatedServiceJourney version="1" id="ENT:DatedServiceJourney:Planned_example" nameOfClass="object">
+                    <Description>                       
+# DatedServiceJourney
+
+>[!NOTE]
+>A particular ServiceJourney of a vehicle on a particular OperatingDay.
+>
+>Operational details of the DatedServiceJourney is derived from a referenced generic ServiceJourney. The generic Journey cannot specify dayTypes when this is defined by the OperatingDay of the DatedServiceJourney.
+
+| XML-type | Name | Type | Cardinality 
+|-|-|-|:-:|
+| Attribute | Id | ObjectIdType | 1:1|
+| Attribute | version | | 1:1|
+| Element | BlockRef | Reference | 0:1| 
+| Element | ServiceJourneyRef | ServiceJourneyRef | 1:1|
+| List    | replacedJourneys | | 0:1|
+| Element | DatedServiceJourneyRef|DatedServiceJourneyRef| 0:*|
+| Element | OperatingDayRef|OperatingDayRef| 1:1|    
+
+EXAMPLE:
+                    </Description>
+                    <BlockRef ref="ENT:TrainBlock:Example"/>
+                    <ServiceJourneyRef ref="ENT:ServiceJourney:Example_1"/>
+                    <replacedJourneys>
+                        <DatedVehicleJourneyRef ref="ENT:DatedServiceJourney:Example"/>
+                    </replacedJourneys>
+                    <OperatingDayRef ref="ENT:OperatingDay:2025-03-06"/>
+                </DatedServiceJourney>         
+            </vehicleJourneys>
+        </TimetableFrame>
+    </dataObjects>
+</PublicationDelivery>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery version="1.0" xmlns="http://www.netex.org.uk/netex">
+    <PublicationTimestamp>2025-02-12T11:48:41</PublicationTimestamp>
+    <ParticipantRef>ENT</ParticipantRef>
+    <Description>
+# DatedServiceJourney
+    
+>[!NOTE]
+>A particular ServiceJourney of a vehicle on a particular OperatingDay.
+>
+>Operational details of the DatedServiceJourney is derived from a referenced generic ServiceJourney. The generic Journey cannot specify dayTypes when this is defined by the OperatingDay of the DatedServiceJourney.
+
+        
+    </Description>
+    <dataObjects>
+        <TimetableFrame version="1" id="ENT:TimeTableFrame:1">
+            <vehicleJourneys>
+                <!-- Planned -->
+                <DatedServiceJourney version="1" id="ENT:DatedServiceJourney:Planned_example" nameOfClass="example" derivedFromObjectRef="">
+                    <Description>
+### Normal planned journey 
+Referencing a [ServiceJourney](ServiceJourney.md) adding a OperatingDay to the Journey's calender and a unique identifier for this connection 
+					</Description>
+                    <ServiceJourneyRef ref="ENT:ServiceJourney:Example_1"/>
+                    <OperatingDayRef ref="ENT:OperatingDay:2025-03-06"/>
+                </DatedServiceJourney>
+                <!-- Cancelled -->
+                <DatedServiceJourney version="1" id="ENT:DatedServiceJourney:Cancelled_example" nameOfClass="example">
+                    <Description>
+### A cancellation of a journey
+                    </Description>
+                    <ServiceAlteration>cancellation</ServiceAlteration>
+                    <ServiceJourneyRef ref="ENT:ServiceJourney:Example_1"/>
+                    <OperatingDayRef ref="ENT:OperatingDay:2025-03-06"/>
+                </DatedServiceJourney>
+                <!-- Replaced -->
+                <DatedServiceJourney version="1" id="ENT:DatedServiceJourney:Replaced" nameOfClass="example">
+					<Description>
+### Journey beeing replaced
+					</Description>
+                    <ServiceAlteration>replaced</ServiceAlteration>
+                    <ServiceJourneyRef ref="ENT:ServiceJourney:Example_1"/>
+                    <OperatingDayRef ref="ENT:OperatingDay:2025-03-06"/>
+                </DatedServiceJourney>
+                <!-- Replacing --> 
+                <DatedServiceJourney version="1" id="ENT:DatedServiceJourney:Replacement_Bus_1" nameOfClass="example">
+					<Description>
+### Replacement journey
+The replacement service uses DatedServiceJourneyRef to tie together with the original journey
+					</Description>
+                    <ServiceJourneyRef ref="ENT:ServiceJourney:Example_bus_1"/>
+                    <replacedJourneys>
+                        <DatedVehicleJourneyRef ref="ENT:DatedServiceJourney:Replaced"/>
+                    </replacedJourneys>
+                    <OperatingDayRef ref="ENT:OperatingDay:2025-03-06"/>
+                </DatedServiceJourney>
+            </vehicleJourneys>
+        </TimetableFrame>
+    </dataObjects>
+</PublicationDelivery>
