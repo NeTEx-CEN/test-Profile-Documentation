@@ -32,7 +32,7 @@ FareZones can be grouped according to a functional purpose by use of a [GroupOfT
 
 
 | **Name**|**Type**|**Cardinality**|**Description** |**Example**|
-|-|-|-|-|-
+|-|-|-|-|-|
 ||FareZone inherits from TariffZone|||
 |Id| FareZoneIdType | 1:1| Identifier of FareZone | |
 |`ValidBetween` | `ValidBetween`| `0:1`| Fromdate and todate for the FareZone, controls when a zone becomes valid or expires `Required in this profile?` ||
