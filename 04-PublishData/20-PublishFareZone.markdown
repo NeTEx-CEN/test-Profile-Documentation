@@ -5,13 +5,13 @@
   - [Geometry](#geometry)
 - [Publication to National Access Point (NAP)](#publish-farezone-to-national-access-point-nap)
 
-# Fares – How to publich FareZones
+# Fares – How to publish FareZones
 ## Object Descriptions
 - [FareZone](/10-Objects/FareZone.markdown)
 - [GroupOfTariffZones](/10-Objects/GroupOfTariffZones.markdown)
 
 # Guideline to optional fields
-This chapter is describing how optional fields should be filled out in different context
+This chapter describes how optional fields should be filled out in different contexts.
 ## Geometry
 `Geometry` must be filled out when `scopingMethod` is `implicitSpatialProjection`
 
@@ -21,11 +21,11 @@ FareZones is sendt to NAP in a [SiteFram](/01-Frames/03-SiteFrame.markdown) with
 The PublicationDelivery should have the following fields filled out:
 |Field|Description|
 |-|-|
-|PublicationTimestamp|ISO8601 formated date string, when the publish to NAP is done|
+|PublicationTimestamp| ISO8601-formatted date string, when the publication to NAP is done.|
 |ParticipantRef||
 |Description||
 
-in [SiteFrame](/01-Frames/03-SiteFrame.markdown), the FareZones is an array of FareZones within the field "tariffZones"
+In [SiteFrame](/01-Frames/03-SiteFrame.markdown), the FareZones are an array of FareZones within the field "tariffZones"
 
 ## Example
     <?xml version="1.0" encoding="UTF-8" standalone="yes"?>

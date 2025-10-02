@@ -20,7 +20,7 @@
 | StopPlaceType        | StopTypeEnumeration                 | 1:1         | Classification of the stop: onstreetBus (bus stop), onstreetTram (tram stop), taxiStand (taxi stand), airport (airport), railStation (train station), metroStation (metro station), busStation (bus terminal), harbourPort (car ferry terminal), ferryStop (passenger ferry terminal), liftStation (cable car station). Required when the StopPlace has underlying Quay(s). Not required for multimodal StopPlace. |
 | BorderCrossing       | xsd:boolean                         | 0:1         | Indicates whether the stop is a border crossing. |
 | Weighting            | InterchangeWeightingEnumeration     | 0:1         | Relative weighting for interchange at the stop: preferredInterchange, recommendedInterchange, interchangeAllowed, noInterchange. Corresponds to interchange priority. |
-| quays                | [Quay](/10-Objects/)                                | 1:* or 0     | List of Quays available at the stop. One or more for standard stops. Always zero for multimodal StopPlaces. |
+| quays                | [Quay](Quay.markdown/)                                | 1:* or 0     | List of Quays available at the stop. One or more for standard stops. Always zero for multimodal StopPlaces. |
 | accessSpaces         | AccessSpace                         | 0:*         | List of waiting areas at the stop. |
 | pathLinks            | PathLink                            | 0:*         | Describes a segment of a walking link. |
 | pathJunctions        | PathJunction                        | 0:*         | Point in a walking link where one or more PathLinks connect. |

@@ -1,12 +1,10 @@
 # Quay
 >[!NOTE]
->A part of a StopPlace where passengers can board and alight vehicles  
-(e.g., bus bay, train platform, or airport gate).
->
+>A part of a [StopPlace](StopPlace.markdown) where passengers can board and alight vehicles (e.g., bus bay, train platform, or airport gate).
+
 >### Important:
-> - A name should **not** be set per Quay (it is inherited from the parent [StopPlace)](/10-Objects/StopPlace.markdown).
->- `QuayType` should **not** be specified, but instead derived from `TransportMode` / `StopPlaceType` (as the NeTEx profile does not allow modeling of multimodal Quays under the same StopPlace).
->
+> - A name should **not** be set per Quay (it is inherited from the parent StopPlace.
+>- `QuayType` should **not** be specified, but instead derived from `TransportMode` / `StopPlaceType` (as the NeTEx profile does not allow modelling of multimodal Quays under the same StopPlace).
 
 
 | Name              | Type                        | Cardinality | Description |

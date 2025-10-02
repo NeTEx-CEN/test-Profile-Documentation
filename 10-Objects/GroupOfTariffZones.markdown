@@ -17,7 +17,7 @@
 </details>
 
 
-## Example GropuOfTariffZones
+## Example GroupOfTariffZones
 
 Example of a zone group with purposeOfGrouping (not all zones are included and some fields are omitted for brevity):
 
