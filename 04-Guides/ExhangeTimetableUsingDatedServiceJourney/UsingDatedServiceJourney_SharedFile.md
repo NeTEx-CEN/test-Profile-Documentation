@@ -5,28 +5,11 @@ This guide describe the content of the shared file within zip file describing sh
 graph TD
     A[PublicationDelivery]
     A --> B[CompositeFrame]
-    B --> C[ValidityConditions]
-    C --> C1[AvailabilityCondition]
-    B --> D[Codespaces]
-    D --> D1[Codespace: OST]
-    D --> D2[Codespace: NSR]
-    B --> E[FrameDefaults]
-    E --> E1[DefaultLocale]
-    B --> F[Frames]
-    F --> F1[ResourceFrame]
-    F1 --> F1a[Operators]
-    F1a --> F1a1[Vy Buss AS]
-    F1a --> F1a2[Nobina]
-    F1a --> F1a3[Østfold kollektivtrafikk]
-    F --> F2[ServiceFrame]
-    F2 --> F2a[Network]
-    F2 --> F2b[RoutePoints]
-    F2 --> F2c[DestinationDisplays]
-    F2 --> F2d[ScheduledStopPoints]
-    F2 --> F2e[ServiceLinks]
-    F2 --> F2f[StopAssignments]
-    F2 --> F2g[Notices]
-    F --> F3[ServiceCalendarFrame]
+    B --> C[ResourceFrame]
+    B --> D[ServiceFrame]
+    B --> E[ServiceCaledarFrame]
+
+
 ```
 
 ## PublicationDelivery
