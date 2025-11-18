@@ -27,7 +27,7 @@ classDiagram
         -FrameDefaults [DefaultLocale]
         -frames [SiteFrame, ServiceFrame, ServiceCalendarFrame, ResourceFrame, TimetableFrame]
     }
-    click CompositeFrame href "https://github.com/hfjelstad/Profile-Documentation/blob/main/01-Frames/CompositeFrame.md"
+    click CompositeFrame href "https://github.com/NeTEx-CEN/test-Profile-Documentation/blob/xml-2-markdown/01-Frames/CompositeFrame.md"
     CompositeFrame o-- SiteFrame
     class SiteFrame{
         @id
@@ -195,6 +195,7 @@ namespace Line {
 
 
 }
+click DatedServiceJourney href "https://github.com/NeTEx-CEN/test-Profile-Documentation/blob/xml-2-markdown/10-Objects/DatedServiceJourney.md"
 PublicationDelivery "1" o-- "*" CompositeFrame
 CompositeFrame "1" o-- "*" TimetableFrame
 CompositeFrame "1" o-- "*" ServiceFrame
