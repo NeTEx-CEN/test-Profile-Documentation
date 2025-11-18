@@ -23,6 +23,29 @@ PublicationDelivery  →  [2]
                 └── TimetabledPassingTime → [16]
 ```
 
+```mermaid
+graph TD
+    A[PublicationDelivery]
+    A --> B[CompositeFrame]
+    B --> C[ValidityConditions]
+    C --> C1[AvailabilityCondition]
+    B --> D[Codespaces]
+    D --> D1[Codespace]
+    B --> E[FrameDefaults]
+    E --> E1[DefaultLocale]
+    B --> F[Frames]
+    F --> F1[ServiceFrame]
+    F1 --> F1a[Line]
+    F1 --> F1b[Route]
+    F1b --> F1b1[PointOnRoute]
+    F1 --> F1c[JourneyPattern]
+    F1c --> F1c1[StopPointInJourneyPattern]
+    F1c --> F1c2[ServiceLinkInJourneyPattern]
+    F --> F2[TimetableFrame]
+    F2 --> F2a[ServiceJourney]
+    F2a --> F2a1[TimetabledPassingTime]
+```
+
 ---
 
 # 🧩 2. PublicationDelivery  {#2}

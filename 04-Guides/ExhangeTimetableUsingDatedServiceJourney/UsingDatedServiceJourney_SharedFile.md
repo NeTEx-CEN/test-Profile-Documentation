@@ -1,6 +1,17 @@
 # Introduction
 This guide describe the content of the shared file within zip file describing shared content.
 
+```mermaid
+graph TD
+    A[PublicationDelivery]
+    A --> B[CompositeFrame]
+    B --> C[ResourceFrame]
+    B --> D[ServiceFrame]
+    B --> E[ServiceCaledarFrame]
+
+
+```
+
 ## PublicationDelivery
 
 | Field                | Type | Mandatory | Description                                            |
