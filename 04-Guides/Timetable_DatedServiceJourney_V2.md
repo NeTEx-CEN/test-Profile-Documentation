@@ -4,7 +4,7 @@
 A description of the minimum information needed for a timtable using DatedServiceJourney as calendar
 
 ### PublicationDelivery:
-<details open>
+<details>
 <summary>EPI Profile</summary>
 
 ```mermaid
@@ -82,7 +82,7 @@ classDiagram
 ```
 
 </details>
-<details>
+<details open>
 <summary>Nordic profile</summary>
 
 ### Shared 
