@@ -7,43 +7,231 @@ A description of the minimum information needed for a timtable using DatedServic
 <details open>
 <summary>EPI Profile</summary>
 
-- [dataObjects]
-    - [CompositeFrame](/01-Frames/CompositeFrame.md)
-        - [validityConditions] [AvailabilityCondition](/10-Objects/AvailabilityCondition.md)
-        - [codespace] [Codespace](/10-Objects/Codespace.md)
-        - FrameDefaults
-            - DefaultLocale
-        - [frames]
-            - [SiteFrame](/01-Frames/SiteFrame.md)
-                - [stopPlaces] [StopPlace](/10-Objects/StopPlace.md)
-                    - [quays] [Quay](/10-Objects/Quay.md)
-            - [ServiceFrame](/01-Frames/ServiceFrame.md)
-                - [lines] [Line](/10-Objects/Line.md)
-                - [routes] [Route](/10-Objects/Route.md)
-                - [journeyPatterns] [JourneyPattern](/10-Objects/JourneyPattern.md)
-                    - [pointsInSequence] [StopPointInJourneyPattern](/10-Objects/StopPointInJourneyPattern.md)
-                - [scheduledStopPoints] [ScheduledStopPoint](/10-Objects/ScheduledStopPoint.md)
-                - [stopAssignments] [PassengerStopAssignment](/10-Objects/PassengerStopAssignment.md)
-            - [ServiceCalendarFrame](/01-Frames/ServiceCalendarFrame.md)
-                - [operatingDays] [OperatingDay](/10-Objects/OperatingDay.md)
-            - [ResourceFrame](/01-Frames/ResourceFrame.md)
-                - [organisations] [Operator](/10-Objects/Operator.md)
-            - [TimetableFrame](/01-Frames/TimetableFrame.md)
-                - [vehicleJourneys]
-                    - [ServiceJourney](/10-Objects/ServiceJourney.md)
-                    - [DatedServiceJourney](/10-Objects/DatedServiceJourney.md)
+```mermaid
+---
+title: Puplication overview 
+---
+
+classDiagram
+    PublicationDelivery "1" o-- "*" CompositeFrame
+    class PublicationDelivery{
+        @id
+        @version
+        -[dataObjects] 
+    }
+    class CompositeFrame{
+        @id
+        @version
+        -validityConditions [AvailabilityCondition]
+        -codespaces [Codespace]
+        -FrameDefaults [DefaultLocale]
+        -frames [SiteFrame, ServiceFrame, ServiceCalendarFrame, ResourceFrame, TimetableFrame]
+    }
+    click CompositeFrame href "https://github.com/hfjelstad/Profile-Documentation/blob/main/01-Frames/CompositeFrame.md"
+    CompositeFrame o-- SiteFrame
+    class SiteFrame{
+        @id
+        @version
+        []List~stopPlaces~ StopPlace
+    }
+    SiteFrame "1" o-- "*" StopPlace
+    class StopPlace{
+        @id
+        @version
+        []List~quays~ Quay
+    }
+    StopPlace "1" o-- "*" Quay
+    CompositeFrame "1" o-- "*" ServiceFrame
+    class ServiceFrame{
+        @id
+        @version
+        []List~lines~ Line
+        []List~routes~ Route
+        []List~journeyPatterns~ JourneyPattern
+        []List~scheduledStopPoints~ ScheduledStopPoint
+        []List~stopAssignments~ PassengerStopAssignment
+    }
+    ServiceFrame "1" o-- "*" Line
+    ServiceFrame "1" o-- "*" Route
+    ServiceFrame "1" o-- "*" JourneyPattern
+    ServiceFrame "1" o-- "*" ScheduledStopPoint
+    CompositeFrame o-- ServiceCalendarFrame
+    class  ServiceCalendarFrame{
+        @id
+        @version
+        []List~operatingDays~ OperatingDay
+    }
+    ServiceCalendarFrame "1" o-- "*" OperatingDay
+    CompositeFrame o-- ResourceFrame
+    class  ResourceFrame{
+        @id
+        @version
+        []List~organisations~ Operator, Authority
+    }
+    ResourceFrame "1" o-- "*" Operator
+    ResourceFrame "1" o-- "*" Authority
+    CompositeFrame "1" o-- "*" TimetableFrame
+        class TimetableFrame{
+            @id 
+            @version 
+            []List~vehicleJourneys~ ServiceJourney, DatedServiceJourney
+        }
+        TimetableFrame "1" o-- "*" ServiceJourney
+        TimetableFrame "1" o-- "*" DatedServiceJourney
+
+```
+
 </details>
 <details>
 <summary>Nordic profile</summary>
 
 ### Shared 
 
+```mermaid
+---
+title: Puplication overview 
+---
+
+classDiagram
+namespace Shared {
+    class PublicationDelivery_Shared{
+        @id
+        @version
+        -[dataObjects] 
+    }
+
+    class CompositeFrame_Shared{
+        @id
+        @version
+        -validityConditions [AvailabilityCondition]
+        -codespaces [Codespace]
+        -FrameDefaults [DefaultLocale]
+        -frames [ServiceFrame, ServiceCalendarFrame, ResourceFrame]
+    }
+    class ServiceFrame_Shared{
+        @id
+        @version
+        []List~lines~ Line
+        []List~routes~ Route
+        []List~journeyPatterns~ JourneyPattern
+        []List~scheduledStopPoints~ ScheduledStopPoint
+        []List~stopAssignments~ PassengerStopAssignment
+    }
+    class PassengerStopAssignment_Shared{
+        @order
+        @version
+        @id 
+        +QuayRef @ref
+        +ScheduledStopPointRef @ref
+    }
+}
+PublicationDelivery_Shared "1" o-- "*" CompositeFrame_Shared
+CompositeFrame_Shared "1" o-- "*" ServiceFrame_Shared
+ServiceFrame_Shared "1" o-- "*" PassengerStopAssignment_Shared
+
+namespace Line {
+    class PublicationDelivery{
+        @id
+        @version
+        -[dataObjects] 
+    }
+    
+    class CompositeFrame{
+        @id
+        @version
+        -validityConditions [AvailabilityCondition]
+        -codespaces [Codespace]
+        -FrameDefaults [DefaultLocale]
+        -frames [ServiceFrame, TimetableFrame]
+    }
+    class ServiceFrame{
+    @id
+    @version
+    []List~lines~ Line
+    []List~routes~ Route
+    []List~journeyPatterns~ JourneyPattern
+    []List~scheduledStopPoints~ ScheduledStopPoint
+    []List~stopAssignments~ PassengerStopAssignment
+    }
+    class JourneyPattern{
+        @version
+        @id 
+        -pointsInSequence [StopPointInJourneyPattern]
+    }
+    class StopPointInJourneyPattern{
+        @order
+        @version
+        @id
+        +ScheduledStopPointRef @ref 
+    } 
+    class TimetableFrame{
+        @id 
+        @version 
+        -vehicleJourneys [ServiceJourney, DatedServiceJourney]
+    }
+    class ServiceJourney{
+        @version
+        @id 
+        +JourneyPatternRef @ref 
+        -passingTimes [TimetabledPassingTime]
+    }
+    class TimetabledPassingTime{
+        @version
+        @id
+        +StopPointInJourneyPatternRef @ref   
+    }
+    class DatedServiceJourney{
+        @version
+        @id 
+        +ServiceJourneyRef @ref 
+        +OperatingDayRef @ref
+    }
+    
+
+
+}
+PublicationDelivery "1" o-- "*" CompositeFrame
+CompositeFrame "1" o-- "*" TimetableFrame
+CompositeFrame "1" o-- "*" ServiceFrame
+TimetableFrame "1" o-- "*" ServiceJourney
+TimetableFrame "1" o-- "*" DatedServiceJourney
+ServiceJourney "1" o-- "*" DatedServiceJourney
+ServiceJourney "1" o-- "*" TimetabledPassingTime
+TimetabledPassingTime "1" --|> "1" StopPointInJourneyPattern
+ServiceFrame "1" o-- "*" JourneyPattern
+JourneyPattern "1" o-- "*" StopPointInJourneyPattern
+StopPointInJourneyPattern "1" <|-- "1" PassengerStopAssignment_Shared
+namespace NSR {
+    class SiteFrame{
+        @id
+        @version
+        []List~stopPlaces~ StopPlace
+    }
+    
+    class StopPlace{
+        @id
+        @version
+        []List~quays~ Quay
+    }
+
+    class Quay{
+        @id
+        @version
+        []List~quays~ Quay
+    }
+    
+}
+Quay o-- PassengerStopAssignment_Shared
+SiteFrame "1" o-- "*" StopPlace
+StopPlace "1" o-- "*" Quay
+```
+<!--
 The shared file is prefixed with underscore ("_")
 
 - [dataObjects]
     - [CompositeFrame](/01-Frames/CompositeFrame.md)
         - [validityConditions] [AvailabilityCondition](/10-Objects/AvailabilityCondition.md)
-        - [codespace] [Codespace](/10-Objects/Codespace.md)
+        - [codespaces] [Codespace](/10-Objects/Codespace.md)
         - FrameDefaults
             - DefaultLocale
         - [frames]
@@ -63,7 +251,7 @@ The shared file is prefixed with underscore ("_")
 - [dataObjects]
     - [CompositeFrame](/01-Frames/CompositeFrame.md)
         - [validityConditions] [AvailabilityCondition](/10-Objects/AvailabilityCondition.md)
-        - [codespace] [Codespace](/10-Objects/Codespace.md)
+        - [codespaces] [Codespace](/10-Objects/Codespace.md)
         - FrameDefaults
             - DefaultLocale
         - [frames]
@@ -77,8 +265,10 @@ The shared file is prefixed with underscore ("_")
                 - [vehicleJourneys]
                     - [ServiceJourney](/10-Objects/ServiceJourney.md)
                     - [DatedServiceJourney](/10-Objects/DatedServiceJourney.md)
+-->
 </details>
-    
+
+
 ### [DatedServiceJourney](/10-Objects/DatedServiceJourney.md)
 The basic structure of a DatedServiceJourney provides a unique identifier, a reference to a [ServiceJourney](#ServiceJourney) and a single [OperatingDay](#OperatingDay) for this Journey.
 There can be 1:* DatedServiceJourney to describe the calendar for a peraticular ServiceJourney
