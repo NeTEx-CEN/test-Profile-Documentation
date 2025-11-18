@@ -111,9 +111,6 @@ namespace Shared {
     class ServiceFrame_Shared{
         @id
         @version
-        []List~lines~ Line
-        []List~routes~ Route
-        []List~journeyPatterns~ JourneyPattern
         []List~scheduledStopPoints~ ScheduledStopPoint
         []List~stopAssignments~ PassengerStopAssignment
     }
@@ -155,8 +152,6 @@ namespace Line {
     []List~lines~ Line
     []List~routes~ Route
     []List~journeyPatterns~ JourneyPattern
-    []List~scheduledStopPoints~ ScheduledStopPoint
-    []List~stopAssignments~ PassengerStopAssignment
     }
     class JourneyPattern{
         @version
