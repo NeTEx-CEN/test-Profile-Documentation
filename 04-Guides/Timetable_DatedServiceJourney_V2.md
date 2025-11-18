@@ -124,10 +124,15 @@ namespace Shared {
         +QuayRef @ref
         +ScheduledStopPointRef @ref
     }
+    class ScheduledStopPoint_Shared{
+        @version
+        @id 
+    }
 }
 PublicationDelivery_Shared "1" o-- "*" CompositeFrame_Shared
 CompositeFrame_Shared "1" o-- "*" ServiceFrame_Shared
 ServiceFrame_Shared "1" o-- "*" PassengerStopAssignment_Shared
+ServiceFrame_Shared "1" o-- "*" ScheduledStopPoint_Shared
 
 namespace Line {
     class PublicationDelivery{
@@ -200,7 +205,8 @@ ServiceJourney "1" o-- "*" TimetabledPassingTime
 TimetabledPassingTime "1" --|> "1" StopPointInJourneyPattern
 ServiceFrame "1" o-- "*" JourneyPattern
 JourneyPattern "1" o-- "*" StopPointInJourneyPattern
-StopPointInJourneyPattern "1" <|-- "1" PassengerStopAssignment_Shared
+ScheduledStopPoint_Shared "1" <|-- "1" PassengerStopAssignment_Shared
+StopPointInJourneyPattern "1" --|> "1" ScheduledStopPoint_Shared
 namespace NSR {
     class SiteFrame{
         @id
