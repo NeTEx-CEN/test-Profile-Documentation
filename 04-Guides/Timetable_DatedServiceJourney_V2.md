@@ -27,7 +27,7 @@ classDiagram
         -FrameDefaults [DefaultLocale]
         -frames [SiteFrame, ServiceFrame, ServiceCalendarFrame, ResourceFrame, TimetableFrame]
     }
-    click CompositeFrame href "https://github.com/NeTEx-CEN/test-Profile-Documentation/blob/xml-2-markdown/01-Frames/CompositeFrame.md"
+    click CompositeFrame href "https://github.com/hfjelstad/Profile-Documentation/blob/main/01-Frames/CompositeFrame.md"
     CompositeFrame o-- SiteFrame
     class SiteFrame{
         @id
@@ -85,7 +85,7 @@ classDiagram
 <details open>
 <summary>Nordic profile</summary>
 
-### Shared 
+### Multiple files and external referenced data 
 
 ```mermaid
 ---
@@ -97,7 +97,7 @@ namespace Shared {
     class PublicationDelivery_Shared{
         @id
         @version
-        -[dataObjects] 
+        -dataObjects [CompositeFrame, SiteFrame, ServiceFrame...] 
     }
 
     class CompositeFrame_Shared{
@@ -108,12 +108,27 @@ namespace Shared {
         -FrameDefaults [DefaultLocale]
         -frames [ServiceFrame, ServiceCalendarFrame, ResourceFrame]
     }
+
     class ServiceFrame_Shared{
         @id
         @version
-        []List~scheduledStopPoints~ ScheduledStopPoint
-        []List~stopAssignments~ PassengerStopAssignment
+        -scheduledStopPoints [ScheduledStopPoint]
+        -stopAssignments [PassengerStopAssignment]
     }
+
+    class ServiceCalendarFrame_Shared{
+        @id
+        @version
+        -operatingDays [OperatingDay]
+        -dayTypes [DayType]
+    }
+
+    class OperatingDay_Shared{
+        @id
+        @version
+        +CalendarDate 
+    }
+
     class PassengerStopAssignment_Shared{
         @order
         @version
@@ -126,16 +141,12 @@ namespace Shared {
         @id 
     }
 }
-PublicationDelivery_Shared "1" o-- "*" CompositeFrame_Shared
-CompositeFrame_Shared "1" o-- "*" ServiceFrame_Shared
-ServiceFrame_Shared "1" o-- "*" PassengerStopAssignment_Shared
-ServiceFrame_Shared "1" o-- "*" ScheduledStopPoint_Shared
 
-namespace Line {
+namespace LineFile {
     class PublicationDelivery{
         @id
         @version
-        -[dataObjects] 
+        -dataObjects [CompositeFrame, SiteFrame, ServiceFrame...] 
     }
     
     class CompositeFrame{
@@ -147,85 +158,134 @@ namespace Line {
         -frames [ServiceFrame, TimetableFrame]
     }
     class ServiceFrame{
-    @id
-    @version
-    []List~lines~ Line
-    []List~routes~ Route
-    []List~journeyPatterns~ JourneyPattern
+        @id
+        @version
+        -lines [Line]
+        -routes [Route]
+        -journeyPatterns [JourneyPattern]
     }
+
+    class Line{
+        @id
+        @version
+        +Name
+        +PublicCode
+    }
+
+    class Route{
+        @id
+        @version
+        +LineRef @ref
+    }
+
     class JourneyPattern{
         @version
         @id 
+        +RouteRef @ref
         -pointsInSequence [StopPointInJourneyPattern]
     }
+
     class StopPointInJourneyPattern{
         @order
         @version
         @id
         +ScheduledStopPointRef @ref 
-    } 
+    }
+
     class TimetableFrame{
         @id 
         @version 
         -vehicleJourneys [ServiceJourney, DatedServiceJourney]
     }
+
     class ServiceJourney{
         @version
         @id 
         +JourneyPatternRef @ref 
         -passingTimes [TimetabledPassingTime]
     }
+
     class TimetabledPassingTime{
         @version
         @id
         +StopPointInJourneyPatternRef @ref   
     }
+
     class DatedServiceJourney{
         @version
         @id 
         +ServiceJourneyRef @ref 
         +OperatingDayRef @ref
-    }
-    
-
-
+    }    
 }
-click DatedServiceJourney href "https://github.com/NeTEx-CEN/test-Profile-Documentation/blob/xml-2-markdown/10-Objects/DatedServiceJourney.md"
-PublicationDelivery "1" o-- "*" CompositeFrame
-CompositeFrame "1" o-- "*" TimetableFrame
-CompositeFrame "1" o-- "*" ServiceFrame
-TimetableFrame "1" o-- "*" ServiceJourney
-TimetableFrame "1" o-- "*" DatedServiceJourney
-ServiceJourney "1" o-- "*" DatedServiceJourney
-ServiceJourney "1" o-- "*" TimetabledPassingTime
-TimetabledPassingTime "1" --|> "1" StopPointInJourneyPattern
-ServiceFrame "1" o-- "*" JourneyPattern
-JourneyPattern "1" o-- "*" StopPointInJourneyPattern
-ScheduledStopPoint_Shared "1" <|-- "1" PassengerStopAssignment_Shared
-StopPointInJourneyPattern "1" --|> "1" ScheduledStopPoint_Shared
+
 namespace NSR {
     class SiteFrame{
         @id
         @version
-        []List~stopPlaces~ StopPlace
+        -stopPlaces [StopPlace]
     }
     
     class StopPlace{
         @id
         @version
-        []List~quays~ Quay
+        -quays [Quay]
     }
 
     class Quay{
         @id
         @version
-        []List~quays~ Quay
-    }
-    
+    }  
 }
-Quay o-- PassengerStopAssignment_Shared
+
+PublicationDelivery_Shared "1" o-- "*" CompositeFrame_Shared
+
+PublicationDelivery "1" o-- "*" CompositeFrame
+
+CompositeFrame_Shared "1" o-- "*" ServiceFrame_Shared
+CompositeFrame_Shared "1" o-- "*" ServiceCalendarFrame_Shared
+
+CompositeFrame "1" o-- "*" TimetableFrame
+CompositeFrame "1" o-- "*" ServiceFrame
+
+ServiceFrame_Shared "1" o-- "*" PassengerStopAssignment_Shared
+ServiceFrame_Shared "1" o-- "*" ScheduledStopPoint_Shared
+
+ServiceCalendarFrame_Shared "1" o-- "*" OperatingDay_Shared
+
+OperatingDay_Shared "1" o-- "*" DatedServiceJourney
+
+ServiceFrame "1" o-- "*" JourneyPattern
+ServiceFrame o-- Line
+ServiceFrame o-- Route
+
+Route o-- JourneyPattern
+
+Line o-- Route
+
+TimetableFrame "1" o-- "*" ServiceJourney
+TimetableFrame "1" o-- "*" DatedServiceJourney
+
+ServiceJourney "1" o-- "*" DatedServiceJourney
+ServiceJourney "1" --o "*" TimetabledPassingTime
+
+TimetabledPassingTime "1" --|> "1" StopPointInJourneyPattern
+
+JourneyPattern "1" o-- "*" StopPointInJourneyPattern
+ScheduledStopPoint_Shared "1" <|-- "1" PassengerStopAssignment_Shared
+StopPointInJourneyPattern "1" --|> "1" ScheduledStopPoint_Shared
+
 SiteFrame "1" o-- "*" StopPlace
 StopPlace "1" o-- "*" Quay
+Quay o-- PassengerStopAssignment_Shared
+
+click CompositeFrame href "https://github.com/NeTEx-CEN/test-Profile-Documentation/blob/xml-2-markdown/01-Frames/CompositeFrame.md"
+
+click DatedServiceJourney href "https://github.com/NeTEx-CEN/test-Profile-Documentation/blob/xml-2-markdown/10-Objects/DatedServiceJourney.md"
+click ServiceJourney href "https://github.com/NeTEx-CEN/test-Profile-Documentation/blob/xml-2-markdown/10-Objects/ServiceJourney.md"
+click StopPlace href "https://github.com/NeTEx-CEN/test-Profile-Documentation/blob/xml-2-markdown/10-Objects/StopPlace.md"
+click Quay href "https://github.com/NeTEx-CEN/test-Profile-Documentation/blob/xml-2-markdown/10-Objects/Quay.md"
+
 ```
 <!--
 The shared file is prefixed with underscore ("_")
