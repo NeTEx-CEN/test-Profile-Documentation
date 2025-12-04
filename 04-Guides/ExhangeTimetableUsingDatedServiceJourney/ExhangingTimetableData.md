@@ -4,7 +4,6 @@
 
 ## Table of Contents
 - [Guide: Exchanging Timetable data](#guide-exchanging-timetable-data)
-  - [Table of content](#table-of-content)
   - [PublicationDelivery root element](#publicationdelivery-root-element)
   - [Organise the data into frames](#organise-the-data-into-frames)
   - [Split the data into seperate files](#split-the-data-into-seperate-files)
@@ -275,6 +274,8 @@ end
 | version | attribute | **YES** | The version of this record, should be updated if the record is changed |
 | Name | ?? | **YES** | The name of hte network |
 | AuthorityRef | ?? | **YES** | The authority which is the owner of this network |<details>
+
+<details>
 <summary>
   <b>Extend to see an example</b>
 </summary>
@@ -305,6 +306,7 @@ end
 | Name | ?? | **YES** | The name of this RoutePoint |
 | PointPRojection | ?? | **YES** | ??? |
 | ProjectedPointRef | ?? | **YES** | Reference to a ScheduledStopPoint **(TODO) or other?** |
+
 <details>
 <summary>
    Extend to see an example
@@ -334,6 +336,7 @@ end
 | version | attribute | **YES** | The version of this record, should be updated if the record is changed |
 | FrontText | ?? | **YES** | The text shown in front of the vehicle |
 | SideText | ?? | NO | ?? |
+
 <details>
 <summary>
   Extend to see an example
@@ -344,7 +347,6 @@ end
     <FrontText>Flåm</FrontText>
 </DestinationDisplay>
 ```
-
 </details>
 
 #### ScheduledStopPoint
@@ -356,6 +358,8 @@ end
 | id | attribute |  **YES** | The ID of the ScheduledStopPoint |
 | version | attribute | **YES** | The version of this record, should be updated if the record is changed |
 | Name | ?? | **YES** | The name of the ScheduledStopPoint|<details>
+
+<details>
 <summary>
   Extend to see an example
 </summary>
@@ -426,6 +430,7 @@ end
 | version | attribute | **YES** | The version of this record, should be updated if the record is changed |
 | ScheduledStopPointRef | ?? | **YES** | The reference to a ScheduledStopPoint |
 | QuayRef | ?? | **YES** | The reference to a Quay (plattform on a StopPlace) |
+
 <details>
 <summary>
   Extend to see an example
@@ -448,6 +453,7 @@ end
 
 <details>
 <summary><b>Click to expand XML example</b></summary>
+  
 ```xml
 <notices>
     <Notice version="1" id="VYG:Notice:332">
@@ -471,6 +477,7 @@ For this Guide, we using DatedServiceJorney, then the ServiceCalenderFrame conta
 <summary>
   Extend to see an example
 </summary>
+  
 ```xml
 <operatingDays>
     <OperatingDay version="1" id="VYG:OperatingDay:2026-01-30">
